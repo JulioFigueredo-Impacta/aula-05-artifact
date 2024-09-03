@@ -11,7 +11,6 @@ on:
   schedule:
     - cron: "*/15 * * * 1-6"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -19,27 +18,26 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
       - name: Build GO Linux
-        run: go build ${{env.FILE_NAME}}.go
+        run: go build ${{ env.FILE_NAME }}.go
         
       - name: Build GO Windows
-        run: GOOS=windows GOARCH=amd64 go build ${{env.FILE_NAME}}.go
+        run: GOOS=windows GOARCH=amd64 go build ${{ env.FILE_NAME }}.go
 
       - name: Upload artifact for linux
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: linux
           path: ./${{ env.FILE_NAME }}
             
       - name: Upload artifact for windows
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: windows
           path: ./${{ env.FILE_NAME }}.exe
+
   download-and-run-linux:
     name: Download and run Linux
     runs-on: ubuntu-latest
@@ -48,10 +46,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Download a Build Artifact Linux
-        uses: actions/download-artifact@v4.1.8
+        uses: actions/download-artifact@v4
         with:
           name: linux
           path: ./${{ env.FILE_NAME }}
-      - name: Script run.sh
-        run: cat ./run.sh
           
+      - name: Make run.sh executable
+        run: chmod +x ./run.sh
+        
+      - name: Run Script
+        run: ./run.sh
