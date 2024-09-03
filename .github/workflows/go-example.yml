@@ -49,7 +49,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: linux
-          path: ./linux/${{ env.FILE_NAME }}
+          path: ./
         
       - name: Opcoes run.sh
         run: source ./run.sh
@@ -64,6 +64,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: windows
-          path: ./windows/${{ env.FILE_NAME }}.exe
+          path: ./
       - name: Lista arquivos
         run: ls
