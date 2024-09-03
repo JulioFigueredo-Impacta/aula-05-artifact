@@ -50,7 +50,7 @@ jobs:
       - name: Download a Build Artifact Linux
         uses: actions/download-artifact@v4.1.8
         with:
-          name: ${{ env.FILE_NAME }}
+          name: linux
           path: ./${{ env.FILE_NAME }}
       - name: Script run.sh
         run: cat ./run.sh
