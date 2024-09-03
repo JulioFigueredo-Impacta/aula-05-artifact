@@ -49,7 +49,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: linux
-          path: ./
+          path: ./linux
         
       - name: Opcoes run.sh
         run: source ./run.sh
