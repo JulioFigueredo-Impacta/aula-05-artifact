@@ -49,7 +49,21 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: linux
-          path: ./${{ env.FILE_NAME }}
+          path: ./linux/${{ env.FILE_NAME }}
         
       - name: Opcoes run.sh
         run: source ./run.sh
+  download-only-windows:
+    name: Download Windows
+    runs-on: ubuntu-latest
+    needs: build-go
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download a Build Artifact Linux
+        uses: actions/download-artifact@v4
+        with:
+          name: windows
+          path: ./windows/${{ env.FILE_NAME }}.exe
+      - name: Lista arquivos
+        run: ls
